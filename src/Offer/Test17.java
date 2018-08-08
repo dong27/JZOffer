@@ -1,5 +1,7 @@
 package Offer;
 
+//打印从1到最大的n位数
+//输入数字n，按顺序打印出从1到最大的n位十进制数。
 public class Test17 {
     public static void main(String[] args){
         //Print1ToMaxOfDigits(2);

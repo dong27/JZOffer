@@ -1,5 +1,6 @@
 package Offer;
 
+//正则表达式匹配
 public class Test19 {
     public static void main(String[] args) {
 
@@ -20,7 +21,7 @@ public class Test19 {
             if(str[strIndex]==pattern[patternIndex]&&strIndex!=str.length||pattern[patternIndex]=='.'&&strIndex!=str.length){
                 //分三种情况递归
                 return matchCore(str,strIndex,pattern,patternIndex+2)//视x*匹配0个字符，即*前一个字符出现0次
-                || matchCore(str,strIndex+1,pattern,patternIndex=2) //匹配到1个字符的情况
+                || matchCore(str,strIndex+1,pattern,patternIndex+2) //匹配到1个字符的情况
                 || matchCore(str,strIndex+1,pattern,patternIndex); //匹配到1个字符，模式保持不变
             }else{
                 //第一个位置不匹配，模式后移两位，也就是视x*匹配0个字符
@@ -33,5 +34,40 @@ public class Test19 {
         }else{
             return false;
         }
+    }
+
+    //字符串格式
+    public boolean matchFunction(String input,String pattern){
+        if(input==null||pattern==null) return false;
+        return matchCoreFunction(input,0,pattern,0);
+    }
+    public boolean matchCoreFunction(String input,int i,String pattern,int p){
+        //两个字符串都到达了末尾，则说明匹配成功，返回true
+        if(i>=input.length()&&p>=pattern.length()) return true;
+        //模式串到了结尾，说明匹配失败
+        if(i!=input.length()&&p==pattern.length()) return false;
+        //模式串未结束，匹配串可能结束也可能未结束
+        if(p+1<pattern.length()&&pattern.charAt(p+1)=='*'){
+            //匹配串已经结束
+            if(i>=input.length()){
+                return matchCoreFunction(input,i,pattern,p+2);
+            }else{ //匹配串还未结束
+                if(pattern.charAt(p)==input.charAt(i)||pattern.charAt(i)=='.'){
+                    return matchCoreFunction(input,i+1,pattern,p+2) //pattern所指下一个字符为'*'时
+                    || matchCoreFunction(input,i+1,pattern,p)// pattern所指下一个字符为'.'时
+                    || matchCoreFunction(input,i,pattern,p+2);
+                }else{
+                    return matchCoreFunction(input,i,pattern,i+2);
+                }
+            }
+        }
+        if(i>=input.length()){
+            return false;
+        }else{
+            if(input.charAt(i)==pattern.charAt(p)||pattern.charAt(p)=='.'){
+                return matchCoreFunction(input,i+1,pattern,p+1);
+            }
+        }
+        return false;
     }
 }

@@ -1,5 +1,7 @@
 package Offer;
 
+//在O(1)时间内删除链表的节点
+//
 public class Test18 {
     public static void main(String[] args){
         TreeNode root=new TreeNode(1);
@@ -39,12 +41,12 @@ public class Test18 {
             pNode.next=null;
         }
     }
-}
-class TreeNode{
-    int val;
-    TreeNode next;
-    TreeNode(){}
-    TreeNode(int v){
-        this.val=v;
+    public static class TreeNode{
+        int val;
+        TreeNode next;
+        TreeNode(){}
+        TreeNode(int v){
+            this.val=v;
+        }
     }
 }
